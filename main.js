@@ -14,12 +14,25 @@ const $$ = document.querySelectorAll.bind(document);
     const btnPrev = $('.btn-prev');
     const btnRandom = $('.btn-random');
     const btnRepeat = $('.btn-repeat');
+    const PLAYER_STORAGE_KEY = 'F8_PLAYER';
 
-    const app = {
+const app = {
     songs: [...listSongs],
     currentIndex: 0,
     isRandom: false,
-
+    isLoop: false,
+    config: JSON.parse(localStorage.getItem(PLAYER_STORAGE_KEY)) || {},
+    setConfig(key, value) {
+        this.config[key] = value;
+        localStorage.setItem(PLAYER_STORAGE_KEY, JSON.stringify(this.config));
+    },
+    loadConfig() {
+        this.isRandom = this.config.isRandom || false;
+        this.isLoop = this.config.isLoop || false;
+        this.currentIndex = this.config.currentIndex || 0;
+ 
+    },
+    
     render() {
         const htmls = this.songs.map( (song, index) => 
             `
@@ -61,6 +74,7 @@ const $$ = document.querySelectorAll.bind(document);
         // Animation of progress bar
         audio.ontimeupdate = () => {
             progress.value = audio.currentTime;
+            this.setConfig("currentTime", audio.currentTime);
         }
 
         // Duration of song / reset animation of CD thumb
@@ -124,6 +138,8 @@ const $$ = document.querySelectorAll.bind(document);
             this.render();
 
             this.scrollIntoView();
+            this.setConfig( "isRandom", this.isRandom);
+
         }
 
         // when song's ended
@@ -132,11 +148,14 @@ const $$ = document.querySelectorAll.bind(document);
             audio.play();
         }
 
+        // Loop
         btnRepeat.onclick = () => {
-            let loop = audio.loop;
+            this.isLoop = !this.isLoop;
 
-            btnRepeat.classList.toggle('active', !loop);
-            audio.loop = !loop;
+            audio.loop = this.isLoop;
+            btnRepeat.classList.toggle('active', this.isLoop); 
+
+            this.setConfig( "isLoop", this.isLoop);
         }
 
         // Active song
@@ -173,6 +192,8 @@ const $$ = document.querySelectorAll.bind(document);
 
         header.textContent = this.songs[this.currentIndex].name;
         audio.src = this.songs[this.currentIndex].path;
+
+        this.setConfig( "currentIndex", this.currentIndex);
     },
 
     loadPrevSong() {
@@ -210,10 +231,13 @@ const $$ = document.querySelectorAll.bind(document);
     },
      
     start() {
+        this.loadConfig();
         this.render();
         this.defineProperties();
         this.handleEvents();
         this.loadCurrentSong();
+
+        audio.currentTime = this.config.currentTime;
     }
 }
 
