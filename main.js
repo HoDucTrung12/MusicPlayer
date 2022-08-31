@@ -21,9 +21,9 @@ const $$ = document.querySelectorAll.bind(document);
     isRandom: false,
 
     render() {
-        const htmls = this.songs.map( song => 
+        const htmls = this.songs.map( (song, index) => 
             `
-            <div class="song">
+            <div class="song ${index==this.currentIndex?'active':' '}" data-index="${index}">
                 <div class="thumb" style="background-image: url('https://i.ytimg.com/vi/jTLhQf5KJSc/maxresdefault.jpg')">
                 </div>
                 <div class="body">
@@ -107,7 +107,7 @@ const $$ = document.querySelectorAll.bind(document);
             this.loadPrevSong();
         }
 
-        // handle random   
+        //  Random   
         btnRandom.onclick = () => {
             this.isRandom = !this.isRandom;
 
@@ -134,6 +134,19 @@ const $$ = document.querySelectorAll.bind(document);
 
             btnRepeat.classList.toggle('active', !loop);
             audio.loop = !loop;
+        }
+
+        // Active song
+        playlist.onclick = e => {
+            let song = e.target.closest('.song');
+            
+            if(!song || song.dataset.index == this.currentIndex)
+                return;
+
+            $('.song.active').classList.remove('active');
+            song.classList.add('active');
+            this.currentIndex = song.dataset.index;
+            this.loadCurrentSong();
         }
     },
 
