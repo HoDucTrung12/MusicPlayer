@@ -12,10 +12,14 @@ const $$ = document.querySelectorAll.bind(document);
     const cdThumb = $('.cd-thumb');
     const btnNext = $('.btn-next');
     const btnPrev = $('.btn-prev');
+    const btnRandom = $('.btn-random');
+    const btnRepeat = $('.btn-repeat');
 
-const app = {
-    songs: listSongs,
+    const app = {
+    songs: [...listSongs],
     currentIndex: 0,
+    isRandom: false,
+
     render() {
         const htmls = this.songs.map( song => 
             `
@@ -37,7 +41,7 @@ const app = {
     handleEvents() {
         let cdWidth = cd.offsetWidth;
 
-        // Scroll the flexibile screen
+        // Scroll top: flexible transform
         window.onscroll = () => {
             let scrollTop = window.scrollY || document.documentElement.scrollTop;
             let currentWidth = cdWidth - scrollTop;
@@ -54,23 +58,22 @@ const app = {
                 audio.pause();
         }
 
-        // Animate of progress bar
+        // Animation of progress bar
         audio.ontimeupdate = () => {
             progress.value = audio.currentTime;
         }
 
-        // Set progress bar value
+        // Duration of song / reset animation of CD thumb
         audio.oncanplay = () => {
             progress.max = audio.duration;
             
             rotateAnimate.currentTime = 0;
-            rotateAnimate.pause();
         }
 
         audio.onplay = () => {
             player.classList.add('playing')
             rotateAnimate.play()
-            audio.autoplay = true
+            audio.autoplay = true;
         }
 
         audio.onpause = () => {
@@ -84,7 +87,7 @@ const app = {
             audio.currentTime = progress.value;
         }
 
-        // The CD rotates
+        // The CD rotate animation
         let rotateAnimate = cdThumb.animate([
             { transform: "rotate(360deg)"}
         ],
@@ -99,7 +102,39 @@ const app = {
             this.loadNextSong();
         }
 
-        console.log(rotateAnimate)
+        // Load prev song
+        btnPrev.onclick = () => {
+            this.loadPrevSong();
+        }
+
+        // handle random   
+        btnRandom.onclick = () => {
+            this.isRandom = !this.isRandom;
+
+            if(this.isRandom) {
+                this.songs.sort(() => Math.random() - 0.5);
+                btnRandom.classList.add("active");
+            } 
+            else {
+                this.songs = [...listSongs];
+                btnRandom.classList.remove("active");
+
+            }
+            this.render();
+        }
+
+        // when song's ended
+        audio.onended = () => {
+            this.loadNextSong();
+            audio.play();
+        }
+
+        btnRepeat.onclick = () => {
+            let loop = audio.loop;
+
+            btnRepeat.classList.toggle('active', !loop);
+            audio.loop = !loop;
+        }
     },
 
     defineProperties() {
@@ -112,9 +147,17 @@ const app = {
 
     loadCurrentSong() {
         header.textContent = this.songs[this.currentIndex].name;
-        // audio.src = this.songs[this.currentIndex].path;
-        let rand = Math.round(Math.random()* 20) ;
-        audio.src = this.songs[rand].path;
+        audio.src = this.songs[this.currentIndex].path;
+        // let rand = Math.round(Math.random()* 25) ;
+        // audio.src = this.songs[rand].path;
+    },
+
+    loadPrevSong() {
+        this.currentIndex--;
+        if(this.currentIndex < 0) {
+            this.currentIndex = this.songs.length - 1;
+        }
+        this.loadCurrentSong();
     },
 
     loadNextSong() {

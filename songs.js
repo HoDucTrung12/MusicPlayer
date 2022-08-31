@@ -30,62 +30,62 @@ const listSongs = [
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Chuyện rằng",
+        singer: "Thịnh Suy",
         path: "./assets/music/song6.flac",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Đã lỡ yêu em nhiều",
+        singer: "Justatee",
         path: "./assets/music/song7.flac",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Slow dancing in the dark",
+        singer: "Joji",
         path: "./assets/music/song8.flac",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Simple Love",
+        singer: "W\\n",
         path: "./assets/music/song9.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Midsummer Madness",
+        singer: "88rising",
         path: "./assets/music/song10.flac",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "OK Nah Nah",
+        singer: "",
         path: "./assets/music/song11.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "LAVIAI",
+        singer: "Wxrdie, HIEUTHUHAI",
         path: "./assets/music/song12.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Ginseng Strip 2002",
+        singer: "Dan Nguyen",
         path: "./assets/music/song13.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Đốt",
+        singer: "Ngọt",
         path: "./assets/music/song14.flac",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Flexin trên Circle K",
+        singer: "Low G",
         path: "./assets/music/song15.mp3",
         image: ""
     },
@@ -96,62 +96,62 @@ const listSongs = [
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Tay to",
+        singer: "MCK",
         path: "./assets/music/song17.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Thắc mắc",
+        singer: "Thịnh Suy",
         path: "./assets/music/song18.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Thanh Xuân",
+        singer: "DaLab",
         path: "./assets/music/song19.flac",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Ghé qua",
+        singer: "Tofu, PC",
         path: "./assets/music/song20.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Thờ er",
+        singer: "MCK",
         path: "./assets/music/song21.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Tình đắng như ly cà phê",
+        singer: "Nger",
         path: "./assets/music/song22.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Tiny love",
+        singer: "Thịnh Suy",
         path: "./assets/music/song23.flac",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Vì anh đâu có biết",
+        singer: "Mahidu, Vũ",
         path: "./assets/music/song24.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Xích thêm chút",
+        singer: "MCK",
         path: "./assets/music/song25.mp3",
         image: ""
     },
     {
-        name: " ",
-        singer: " ",
+        name: "Your smile",
+        singer: "Obito, hnhngan",
         path: "./assets/music/song26.flac",
         image: ""
     },
