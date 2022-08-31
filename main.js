@@ -122,6 +122,8 @@ const $$ = document.querySelectorAll.bind(document);
             }
             this.currentIndex = this.songs.indexOf(currentSong);
             this.render();
+
+            this.scrollIntoView();
         }
 
         // when song's ended
@@ -148,10 +150,8 @@ const $$ = document.querySelectorAll.bind(document);
             this.currentIndex = song.dataset.index;
             this.loadCurrentSong();
             
-            playlist.firstElementChild.scrollIntoView({
-                behavior: "smooth",
-                block: "end"
-            })
+            
+
             audio.play();
         }
     },
@@ -168,7 +168,8 @@ const $$ = document.querySelectorAll.bind(document);
         // active
         $('.song.active').classList.remove('active');
         playlist.children[this.currentIndex].classList.add('active');
-
+ 
+        this.scrollIntoView()
 
         header.textContent = this.songs[this.currentIndex].name;
         audio.src = this.songs[this.currentIndex].path;
@@ -189,6 +190,23 @@ const $$ = document.querySelectorAll.bind(document);
         }
 
         this.loadCurrentSong();
+    },
+    scrollIntoView() {
+            // playlist.firstElementChild.scrollIntoView({
+            //     behavior: "smooth",
+            //     block: "end"
+            // })
+            if(this.currentIndex != 0)
+                playlist.children[this.currentIndex].scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                })
+            else {
+                playlist.children[this.currentIndex].scrollIntoView({
+                    behavior: "smooth",
+                    block: "end"
+                })
+            }
     },
      
     start() {
