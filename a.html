@@ -2,50 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>JS scrollIntoView Demo</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <audio src="./assets/music/song1.mp3" controls></audio>
-    <br>
-
-    <button>Loop</button>
-    <br>
-    <input type="range" name="" id="volume" value="100">
-    <br>
-    <input type="range" id="playbackPosition" value="0">
+    <div class="container">
+        <button class="btn">Scroll Into View</button>
+        <ul>
+            <li>C</li>
+            <li>Java</li>
+            <li>Python</li>
+            <li>C++</li>
+            <li>C#</li>
+            <li>Go</li>
+            <li>Visual Basic</li>
+            <li>JavaScript</li>
+            <li>PHP</li>
+            <li>SQL</li>
+            <li>R</li>
+            <li>Swift</li>
+            <li class="special">JavaScript</li>
+            <li>MATLAB</li>
+            <li>Assembly language</li>
+            <li>Ruby</li>
+            <li>PL/SQL</li>
+            <li>Classic Visual Basic</li>
+            <li>Perl</li>
+            <li>Scratch</li>
+            <li>Objective-C</li>
+        </ul>
+    </div>
+    <script src="scrollIntoView.js"></script>
 </body>
 <script>
-    let audio = document.querySelector("audio");
-    
-    let button = document.querySelector("button");
-    button.onclick = () => {
-        if(audio.loop) 
-            audio.loop = false;
-        else audio.loop = true;
-    }
+    let btn = document.querySelector('.btn');
+    let el = document.querySelector('li');
 
-    let volumeBtn = document.querySelector("#volume")
-    volumeBtn.oninput = (e) => {
-        audio.volume = e.target.value / 100;
-    }
-
-    let playbackPositionBtn = document.querySelector("#playbackPosition")
-    
- 
-
-    audio.oncanplay = () => {
-        playbackPositionBtn.max = audio.duration;
-        console.log(audio.duration)
-    }
-
-    audio.ontimeupdate = (e) => {
-        playbackPositionBtn.value = e.target.currentTime;
-    }
- 
-    playbackPositionBtn.oninput = (e) => {
-        audio.currentTime = e.target.value;
-    }
+    btn.addEventListener('click', function() {
+        el.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+    });
 </script>
+<style>
+    button, 
+    li {
+        height: 20vh;
+        width: 100vw;
+    }
+    .special {
+        background-color: aquamarine;
+    }
+</style>
 </html>

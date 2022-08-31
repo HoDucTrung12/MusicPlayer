@@ -110,6 +110,7 @@ const $$ = document.querySelectorAll.bind(document);
         //  Random   
         btnRandom.onclick = () => {
             this.isRandom = !this.isRandom;
+            let currentSong = this.songs[this.currentIndex];
 
             if(this.isRandom) {
                 this.songs.sort(() => Math.random() - 0.5);
@@ -118,8 +119,8 @@ const $$ = document.querySelectorAll.bind(document);
             else {
                 this.songs = [...listSongs];
                 btnRandom.classList.remove("active");
-
             }
+            this.currentIndex = this.songs.indexOf(currentSong);
             this.render();
         }
 
@@ -143,10 +144,15 @@ const $$ = document.querySelectorAll.bind(document);
             if(!song || song.dataset.index == this.currentIndex)
                 return;
 
-            $('.song.active').classList.remove('active');
-            song.classList.add('active');
+            
             this.currentIndex = song.dataset.index;
             this.loadCurrentSong();
+            
+            playlist.firstElementChild.scrollIntoView({
+                behavior: "smooth",
+                block: "end"
+            })
+            audio.play();
         }
     },
 
@@ -159,10 +165,13 @@ const $$ = document.querySelectorAll.bind(document);
     },
 
     loadCurrentSong() {
+        // active
+        $('.song.active').classList.remove('active');
+        playlist.children[this.currentIndex].classList.add('active');
+
+
         header.textContent = this.songs[this.currentIndex].name;
         audio.src = this.songs[this.currentIndex].path;
-        // let rand = Math.round(Math.random()* 25) ;
-        // audio.src = this.songs[rand].path;
     },
 
     loadPrevSong() {
@@ -181,7 +190,7 @@ const $$ = document.querySelectorAll.bind(document);
 
         this.loadCurrentSong();
     },
-
+     
     start() {
         this.render();
         this.defineProperties();
