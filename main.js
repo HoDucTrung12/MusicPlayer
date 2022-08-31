@@ -232,11 +232,27 @@ const app = {
      
     start() {
         this.loadConfig();
+        if(this.isLoop) {
+            btnRepeat.classList.add('active');
+            audio.loop = true;
+        }
+        if(this.isRandom) {
+            btnRandom.classList.add('.active');
+            if(this.isRandom) {
+                this.songs.sort(() => Math.random() - 0.5);
+                btnRandom.classList.add("active");
+            } 
+            else {
+                this.songs = [...listSongs];
+                btnRandom.classList.remove("active");
+            }
+        }
+
         this.render();
         this.defineProperties();
         this.handleEvents();
         this.loadCurrentSong();
-
+        
         audio.currentTime = this.config.currentTime;
     }
 }
